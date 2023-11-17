@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import UserDetails from "./components/UserDetails";
+import AccountCreation from "./components/AccountCreation";
 
-function App() {
+const App = () => {
+  // State to manage the active tab
+  const [activeTab, setActiveTab] = useState("userDetails");
+
+  // Function to render the content based on the active tab
+  const renderTabContent = () => {
+    return activeTab === "userDetails" ? <UserDetails /> : <AccountCreation />;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div>
+      {/* Tab navigation */}
+      <div className="tabs flex border-solid text-lg font-medium mb-6 bg-slate-300 shadow-lg shadow-slate-600/50 font-mono p-2">
+        {/* Button for User Details tab */}
+        <button
+          onClick={() => {
+            setActiveTab("userDetails");
+          }}
+          className={
+            activeTab === "userDetails"
+              ? "active bg-slate-500 text-white rounded-2xl px-6 py-3"
+              : "px-6 py-3"
+          }
         >
-          Learn React
-        </a>
-      </header>
+          User Details
+        </button>
+        {/* Button for Account Creation tab */}
+        <button
+          onClick={() => setActiveTab("accountCreation")}
+          className={
+            activeTab === "accountCreation"
+              ? "active bg-slate-500 text-white rounded-2xl px-6 py-3"
+              : "px-6 py-3"
+          }
+        >
+          Account Creation
+        </button>
+      </div>
+
+      {/* Render the content based on the active tab */}
+      {renderTabContent()}
     </div>
   );
-}
+};
 
 export default App;
